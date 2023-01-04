@@ -1,12 +1,14 @@
-.header {
+.wrapper {
   display: flex;
   justify-content: center;
-  padding: 48px 0;
 }
 
-.headerInner {
-  align-items: center;
-  display: flex;
+.inner {
   max-width: 1280px;
   width: 100%;
+}
+
+.imageWrapper {
+  aspect-ratio: 16 / 9;
+  position: relative;
 }

@@ -5,7 +5,10 @@ import "ress/dist/ress.min.css";
 import "./globals.scss";
 import Layout from "components/Layout";
 
-const zenKakuGothicNew = Zen_Kaku_Gothic_New({ weight: "400" });
+const zenKakuGothicNew = Zen_Kaku_Gothic_New({
+  subsets: ["latin"],
+  weight: "400",
+});
 
 export type RootLayoutProps = {
   children: ReactNode;
