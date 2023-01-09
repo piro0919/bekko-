@@ -1,20 +1,43 @@
+import { Comfortaa } from "@next/font/google";
+import Link from "next/link";
+import { MouseEventHandler, useEffect } from "react";
+import { RiMenu3Fill } from "react-icons/ri";
 import Spacer from "react-spacer";
+import { useScrollYPosition } from "react-use-scroll-position";
+import { useBoolean } from "usehooks-ts";
 import styles from "./style.module.scss";
 import PrimaryNavigation from "components/PrimaryNavigation";
-import { Comfortaa } from "@next/font/google";
 
 const comfortaa = Comfortaa({
   subsets: ["latin"],
   weight: "400",
 });
 
-export default function Header(): JSX.Element {
+export type HeaderProps = {
+  onOpen: MouseEventHandler<HTMLButtonElement>;
+};
+
+export default function Header({ onOpen }: HeaderProps): JSX.Element {
+  const scrollY = useScrollYPosition();
+  const { setValue: setIsTop, value: isTop } = useBoolean(false);
+
+  useEffect(() => {
+    setIsTop(!scrollY);
+  }, [scrollY, setIsTop]);
+
   return (
-    <header className={styles.header}>
-      <div className={styles.headerInner}>
-        <h1 className={comfortaa.className}>Natsuzolab</h1>
+    <header className={`${styles.header} ${isTop ? "" : styles.narrow}`}>
+      <div className={styles.inner}>
+        <Link href="/">
+          <h1 className={comfortaa.className}>Natsuzolab</h1>
+        </Link>
         <Spacer grow={1} />
-        <PrimaryNavigation />
+        <div className={styles.primaryNavigationWrapper}>
+          <PrimaryNavigation />
+        </div>
+        <button className={styles.button} onClick={onOpen}>
+          <RiMenu3Fill color="#fff" size={24} />
+        </button>
       </div>
     </header>
   );

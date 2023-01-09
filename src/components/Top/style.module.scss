@@ -1,14 +1,75 @@
 .wrapper {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  @include mq.mq($until: desktop) {
+    gap: 48px;
+  }
+  @include mq.mq($from: desktop) {
+    gap: 72px;
+  }
 }
 
 .inner {
+  justify-self: center;
   max-width: 1280px;
-  width: 100%;
+}
+
+.swiper :global(.swiper-slide) {
+  opacity: 0.25;
+  transition: 250ms;
+}
+
+.swiper :global(.swiper-slide-active) {
+  opacity: 1;
+}
+
+.swiper :global(.swiper-button-next),
+.swiper :global(.swiper-button-prev) {
+  color: #fff;
 }
 
 .imageWrapper {
-  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
   position: relative;
+  @include mq.mq($until: desktop) {
+    aspect-ratio: 3 / 4;
+  }
+  @include mq.mq($from: desktop) {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+.newsBlock {
+  background: #35323f;
+  display: flex;
+  justify-content: center;
+  padding-left: 24px;
+  padding-right: 24px;
+  @include mq.mq($until: desktop) {
+    padding-bottom: 36px;
+    padding-top: 36px;
+  }
+  @include mq.mq($from: desktop) {
+    padding-bottom: 60px;
+    padding-top: 60px;
+  }
+}
+
+.list {
+  display: grid;
+  @include mq.mq($until: desktop) {
+    gap: 36px;
+  }
+  @include mq.mq($from: desktop) {
+    gap: 48px;
+  }
+}
+
+.item {
+  text-align: center;
+}
+
+.date {
+  font-size: 1.4rem;
+  margin: 8px 0 0;
 }

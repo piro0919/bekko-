@@ -1,0 +1,50 @@
+.wrapper {
+  display: grid;
+  gap: 72px;
+}
+
+.inner {
+  justify-self: center;
+  max-width: 1280px;
+  width: 100%;
+}
+
+.listWrapper {
+  margin: 48px 0 0;
+}
+
+.list {
+  display: grid;
+  gap: 48px;
+  grid-template: auto / repeat(3, 1fr);
+}
+
+.imageWrapper {
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.title {
+  margin: 8px 0 0;
+}
+
+.evenBlock {
+  background: #35323f;
+  display: grid;
+  padding: 60px 0;
+}
+
+.list2 {
+  display: grid;
+  gap: 48px;
+  grid-template: auto / repeat(4, 1fr);
+}
+
+.imageWrapper2 {
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
