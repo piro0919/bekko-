@@ -19,7 +19,7 @@ export type HeaderProps = {
 
 export default function Header({ onOpen }: HeaderProps): JSX.Element {
   const scrollY = useScrollYPosition();
-  const { setValue: setIsTop, value: isTop } = useBoolean(false);
+  const { setValue: setIsTop, value: isTop } = useBoolean(true);
 
   useEffect(() => {
     setIsTop(!scrollY);
@@ -29,7 +29,7 @@ export default function Header({ onOpen }: HeaderProps): JSX.Element {
     <header className={`${styles.header} ${isTop ? "" : styles.narrow}`}>
       <div className={styles.inner}>
         <Link href="/">
-          <h1 className={comfortaa.className}>Natsuzolab</h1>
+          <h1 className={`${comfortaa.className} ${styles.h1}`}>Natsuzolab</h1>
         </Link>
         <Spacer grow={1} />
         <div className={styles.primaryNavigationWrapper}>

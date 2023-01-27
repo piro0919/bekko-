@@ -18,7 +18,7 @@ export type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
   return (
-    <html>
+    <html lang="ja">
       <head />
       <body className={zenKakuGothicNew.className}>
         <Layout>{children}</Layout>

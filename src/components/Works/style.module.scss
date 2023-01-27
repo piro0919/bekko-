@@ -1,0 +1,72 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  @include mq.mq($until: tablet) {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  @include mq.mq($from: tablet) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+.inner {
+  align-items: flex-start;
+  display: grid;
+  max-width: 1280px;
+  width: 100%;
+  @include mq.mq($until: tablet) {
+    gap: 36px 12px;
+    grid-template: auto / repeat(1, 1fr);
+  }
+  @include mq.mq($until: desktop, $from: tablet) {
+    gap: 24px;
+    grid-template: auto / repeat(1, 1fr);
+  }
+  @include mq.mq($until: wide, $from: desktop) {
+    gap: 24px;
+    grid-template: auto / repeat(2, 1fr);
+  }
+  @include mq.mq($from: wide) {
+    gap: 36px;
+    grid-template: auto / repeat(2, 1fr);
+  }
+}
+
+.article {
+  background: #35323f;
+  border-radius: 4px;
+  padding: 24px 24px 0;
+}
+
+.listWrapper {
+  margin: 24px 0 0;
+}
+
+.list,
+.collapseList {
+  display: grid;
+  gap: 24px;
+}
+
+.collapseList {
+  margin: 12px 0 0;
+}
+
+.item {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+}
+
+.item::before {
+  content: "-";
+  display: block;
+}
+
+.bottomWrapper {
+  display: flex;
+  justify-content: center;
+  margin: 24px 0 4px;
+}

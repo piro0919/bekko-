@@ -3,6 +3,18 @@
   gap: 72px;
 }
 
+.oddBlock {
+  display: grid;
+  @include mq.mq($until: tablet) {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  @include mq.mq($from: tablet) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
 .inner {
   justify-self: center;
   max-width: 1280px;
@@ -15,15 +27,39 @@
 
 .list {
   display: grid;
-  gap: 48px;
-  grid-template: auto / repeat(3, 1fr);
+  @include mq.mq($until: tablet) {
+    gap: 36px;
+    grid-template: auto / repeat(1, 1fr);
+  }
+  @include mq.mq($until: wide, $from: tablet) {
+    gap: 36px 24px;
+    grid-template: auto / repeat(2, 1fr);
+  }
+  @include mq.mq($from: wide) {
+    gap: 48px;
+    grid-template: auto / repeat(3, 1fr);
+  }
 }
 
-.imageWrapper {
+.iframeWrapper {
   aspect-ratio: 16 / 9;
   border-radius: 12px;
   overflow: hidden;
   position: relative;
+}
+
+.iframeWrapper::after {
+  content: "";
+  display: block;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.iframe {
+  height: 100%;
+  position: absolute;
+  width: 100%;
 }
 
 .title {
@@ -33,13 +69,16 @@
 .evenBlock {
   background: #35323f;
   display: grid;
-  padding: 60px 0;
-}
-
-.list2 {
-  display: grid;
-  gap: 48px;
-  grid-template: auto / repeat(4, 1fr);
+  padding-bottom: 60px;
+  padding-top: 60px;
+  @include mq.mq($until: tablet) {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  @include mq.mq($from: tablet) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 .imageWrapper2 {

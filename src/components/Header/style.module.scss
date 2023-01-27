@@ -1,12 +1,13 @@
 .header {
-  background: #2a2a2a;
+  backdrop-filter: blur(4px);
+  background: rgba(42, 42, 42, 0.9);
   display: flex;
   justify-content: center;
   transition: 250ms;
-  @include mq.mq($until: desktop) {
+  @include mq.mq($until: tablet) {
     padding: 24px 12px;
   }
-  @include mq.mq($from: desktop) {
+  @include mq.mq($from: tablet) {
     padding: 48px 24px;
   }
 }
@@ -21,6 +22,15 @@
   display: flex;
   max-width: 1280px;
   width: 100%;
+}
+
+.h1 {
+  font-size: 3.2rem;
+  transition: 250ms;
+}
+
+.narrow .h1 {
+  font-size: 2.4rem;
 }
 
 .primaryNavigationWrapper {

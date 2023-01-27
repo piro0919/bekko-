@@ -5,4 +5,23 @@
 
 .link {
   font-size: 1.8rem;
+  position: relative;
+}
+
+.link::before {
+  background: #fff;
+  content: "";
+  display: block;
+  height: 1px;
+  left: calc(12px / -2);
+  position: absolute;
+  scale: 0;
+  top: calc(50% - 1px / 2);
+  transform-origin: center;
+  transition: 250ms;
+  width: calc(100% + 12px);
+}
+
+.active::before {
+  scale: 1;
 }

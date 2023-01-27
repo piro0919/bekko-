@@ -1,5 +1,6 @@
 import { Poppins } from "@next/font/google";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import styles from "./style.module.scss";
 
 const poppins = Poppins({
@@ -8,34 +9,44 @@ const poppins = Poppins({
 });
 
 export default function PrimaryNavigation(): JSX.Element {
+  const pathname = usePathname();
+
   return (
     <nav>
       <ul className={`${poppins.className} ${styles.list}`}>
-        <li>
-          <Link className={styles.link} href="/">
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link className={styles.link} href="/discography">
-            Discography
-          </Link>
-        </li>
-        <li>
-          <Link className={styles.link} href="/works">
-            Works
-          </Link>
-        </li>
-        <li>
-          <Link className={styles.link} href="/profile">
-            Profile
-          </Link>
-        </li>
-        <li>
-          <Link className={styles.link} href="/contact">
-            Contact
-          </Link>
-        </li>
+        {[
+          {
+            title: "Home",
+            url: "/",
+          },
+          {
+            title: "Discography",
+            url: "/discography",
+          },
+          {
+            title: "Works",
+            url: "/works",
+          },
+          {
+            title: "Profile",
+            url: "/profile",
+          },
+          {
+            title: "Contact",
+            url: "/contact",
+          },
+        ].map(({ title, url }) => (
+          <li key={url}>
+            <Link
+              className={`${styles.link} ${
+                pathname === url ? styles.active : ""
+              }`}
+              href={url}
+            >
+              {title}
+            </Link>
+          </li>
+        ))}
       </ul>
     </nav>
   );

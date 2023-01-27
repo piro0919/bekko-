@@ -11,7 +11,7 @@ export default function Profile(): JSX.Element {
               <h2>
                 成田 旬<small>（なりた しゅん）</small>
               </h2>
-              <div>
+              <div className={styles.descriptionWrapper}>
                 <p>
                   Composer & Arranger
                   <br />
@@ -19,28 +19,57 @@ export default function Profile(): JSX.Element {
                   <br />
                   Vocaloid Mayuの開発者です。
                 </p>
-                <article>
+                <article className={styles.article}>
                   <h3>業務内容</h3>
                   <p>
                     作曲・編曲・ギター、ベースの録音・サンプリング
                     ・歌のお直し・波形編集など
                   </p>
                 </article>
-                <article>
+                <article className={styles.article}>
                   <h3>主な担当作品</h3>
-                  <ul>
+                  <ul className={styles.list}>
                     {[
-                      "カワイスギクライシス",
-                      "ダークギャザリング",
-                      "それでも歩は寄せてくる",
-                      "もういっぽん！",
-                      "闘神機ジーズフレーム",
-                      "ツナガレラジオ～僕らの雨降 Days～",
-                      "NOBLESSE -ノブレス-",
-                      "あかねさす少女",
-                      "俺達の世界わ終っている。",
-                    ].map((title) => (
-                      <li key={title}>{title}</li>
+                      {
+                        title: "カワイスギクライシス",
+                        url: "https://www.google.co.jp/",
+                      },
+                      {
+                        title: "ダークギャザリング",
+                        url: "https://www.google.co.jp/",
+                      },
+                      {
+                        title: "それでも歩は寄せてくる",
+                        url: "https://www.google.co.jp/",
+                      },
+                      {
+                        title: "もういっぽん！",
+                        url: "https://www.google.co.jp/",
+                      },
+                      {
+                        title: "闘神機ジーズフレーム",
+                        url: "https://www.google.co.jp/",
+                      },
+                      {
+                        title: "ツナガレラジオ～僕らの雨降 Days～",
+                        url: "https://www.google.co.jp/",
+                      },
+                      {
+                        title: "NOBLESSE -ノブレス-",
+                        url: "https://www.google.co.jp/",
+                      },
+                      {
+                        title: "あかねさす少女",
+                        url: "https://www.google.co.jp/",
+                      },
+                      {
+                        title: "俺達の世界わ終っている。",
+                        url: "https://www.google.co.jp/",
+                      },
+                    ].map(({ title, url }) => (
+                      <li className={styles.item} key={url}>
+                        {title}
+                      </li>
                     ))}
                   </ul>
                 </article>
