@@ -1,12 +1,14 @@
 "use client";
 import queryString from "query-string";
+import { useEffect, useState } from "react";
 import useScrollbarSize from "react-scrollbar-size";
 import { Autoplay, Navigation } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useWindowSize } from "usehooks-ts";
+import { useBoolean, useWindowSize } from "usehooks-ts";
 import styles from "./style.module.scss";
+import YouTubeModal from "components/YouTubeModal";
 
 type News = {
   date: string;
@@ -29,27 +31,47 @@ export default function Home({
 }: HomeProps): JSX.Element {
   const { width: scrollbarWidth } = useScrollbarSize();
   const { width } = useWindowSize();
+  const {
+    setFalse: offIsOpen,
+    setTrue: onIsOpen,
+    value: isOpen,
+  } = useBoolean();
+  const [url, setUrl] = useState("");
+
+  useEffect(() => {
+    if (isOpen) {
+      return;
+    }
+
+    setUrl("");
+  }, [isOpen]);
 
   return (
-    <div className={styles.wrapper}>
-      <div
-        className={styles.inner}
-        style={{ width: `calc(100dvw - ${scrollbarWidth}px)` }}
-      >
-        <Swiper
-          autoplay={{ delay: 10000, pauseOnMouseEnter: true }}
-          centeredSlides={true}
-          className={styles.swiper}
-          loop={true}
-          modules={[Autoplay, Navigation]}
-          navigation={true}
-          slidesPerView={1.4}
-          spaceBetween={width >= 980 ? 48 : 24}
+    <>
+      <div className={styles.wrapper}>
+        <div
+          className={styles.inner}
+          style={{ width: `calc(100dvw - ${scrollbarWidth}px)` }}
         >
-          {youTubeList.map(({ url }) => (
-            <SwiperSlide key={url}>
-              <a href={url} rel="noreferrer" target="_blank">
-                <div className={styles.iframeWrapper}>
+          <Swiper
+            autoplay={{ delay: 10000, pauseOnMouseEnter: true }}
+            centeredSlides={true}
+            className={styles.swiper}
+            loop={true}
+            modules={[Autoplay, Navigation]}
+            navigation={true}
+            slidesPerView={1.4}
+            spaceBetween={width >= 980 ? 48 : 24}
+          >
+            {youTubeList.map(({ url }) => (
+              <SwiperSlide key={url}>
+                <div
+                  className={styles.iframeWrapper}
+                  onClick={(): void => {
+                    setUrl(url);
+                    onIsOpen();
+                  }}
+                >
                   <iframe
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     allowFullScreen={true}
@@ -60,34 +82,39 @@ export default function Home({
                     title="YouTube video player"
                   />
                 </div>
-              </a>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-      <div className={styles.newsBlock}>
-        <div className={styles.inner}>
-          <ul className={styles.list}>
-            {newsList.map(({ date, title, url }) => (
-              <li className={styles.item} key={title}>
-                {url ? (
-                  <a
-                    className={styles.link}
-                    href={url}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {title}
-                  </a>
-                ) : (
-                  <div>{title}</div>
-                )}
-                <div className={styles.date}>{date}</div>
-              </li>
+              </SwiperSlide>
             ))}
-          </ul>
+          </Swiper>
+        </div>
+        <div className={styles.newsBlock}>
+          <div className={styles.inner}>
+            <ul className={styles.list}>
+              {newsList.map(({ date, title, url }) => (
+                <li className={styles.item} key={title}>
+                  {url ? (
+                    <a
+                      className={styles.link}
+                      href={url}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      {title}
+                    </a>
+                  ) : (
+                    <div>{title}</div>
+                  )}
+                  <div className={styles.date}>{date}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
+      <YouTubeModal
+        isOpen={isOpen}
+        onClose={offIsOpen}
+        videoId={queryString.parseUrl(url).query.v?.toString() || ""}
+      />
+    </>
   );
 }

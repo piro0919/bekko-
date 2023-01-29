@@ -1,3 +1,6 @@
+/* stylelint-disable-next-line plugin/sass-render-errors */
+@import "react-modal-video/scss/modal-video";
+
 html {
   @include mq.mq($until: tablet) {
     font-size: 56.25%;
@@ -44,4 +47,12 @@ ul {
   height: 100%;
   position: relative;
   z-index: 100;
+}
+
+.modal-video {
+  backdrop-filter: blur(4px);
+}
+
+.modal-video-body {
+  max-width: 1280px;
 }

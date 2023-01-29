@@ -1,5 +1,6 @@
 "use client";
 import NoSSR from "@mpth/react-no-ssr";
+import { usePathname } from "next/navigation";
 import noScroll from "no-scroll";
 import { ReactNode, useEffect } from "react";
 import { useBoolean, useElementSize } from "usehooks-ts";
@@ -19,6 +20,7 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
     setTrue: onIsOpen,
     value: isOpen,
   } = useBoolean(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     if (isOpen) {
@@ -29,6 +31,10 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
 
     noScroll.off();
   }, [isOpen]);
+
+  useEffect(() => {
+    offIsOpen();
+  }, [offIsOpen, pathname]);
 
   return (
     <>
@@ -45,7 +51,9 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
         <Footer />
       </div>
       <NoSSR>
-        <Drawer onClose={offIsOpen} open={isOpen} />
+        <div className={styles.drawerWrapper}>
+          <Drawer onClose={offIsOpen} open={isOpen} />
+        </div>
       </NoSSR>
     </>
   );

@@ -34,6 +34,12 @@
   }
 }
 
+.incidentalMusicArticleWrapper {
+  @include mq.mq($from: desktop) {
+    grid-column: 1 / 3;
+  }
+}
+
 .article {
   background: #35323f;
   border-radius: 4px;

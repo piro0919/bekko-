@@ -1,5 +1,6 @@
 "use client";
-import { Poppins } from "@next/font/google";
+// eslint-disable-next-line camelcase
+import { Sawarabi_Gothic } from "@next/font/google";
 import { useMemo } from "react";
 import useCollapse from "react-collapsed";
 import {
@@ -8,6 +9,11 @@ import {
 } from "react-icons/io5";
 import styles from "./style.module.scss";
 
+const sawarabiGothic = Sawarabi_Gothic({
+  subsets: ["latin"],
+  weight: "400",
+});
+
 type Work = {
   title: string;
   url: string;
@@ -15,10 +21,15 @@ type Work = {
 
 type ArticleProps = {
   heading: string;
+  initialCount?: number;
   works: Work[];
 };
 
-function Article({ heading, works }: ArticleProps): JSX.Element {
+function Article({
+  heading,
+  initialCount = 3,
+  works,
+}: ArticleProps): JSX.Element {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
   const items = useMemo(
     () =>
@@ -43,15 +54,17 @@ function Article({ heading, works }: ArticleProps): JSX.Element {
 
   return (
     <article className={styles.article}>
-      <h2 className={poppins.className}>{heading}</h2>
+      <h2 className={sawarabiGothic.className}>{heading}</h2>
       <div className={styles.listWrapper}>
-        <ul className={styles.list}>{items.filter((_, index) => index < 3)}</ul>
+        <ul className={styles.list}>
+          {items.filter((_, index) => index < initialCount)}
+        </ul>
         <ul {...getCollapseProps()}>
-          {items.filter((_, index) => index >= 3)}
+          {items.filter((_, index) => index >= initialCount)}
         </ul>
       </div>
       <div className={styles.bottomWrapper}>
-        {items.at(3) ? (
+        {items.at(initialCount) ? (
           <button {...getToggleProps()}>
             {isExpanded ? (
               <IoChevronUpCircleSharp color="#fff" size={24} />
@@ -64,11 +77,6 @@ function Article({ heading, works }: ArticleProps): JSX.Element {
     </article>
   );
 }
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: "400",
-});
 
 export type WorksProps = {
   andMoreList: ArticleProps["works"];
@@ -90,12 +98,28 @@ export default function Works({
   return (
     <div className={styles.wrapper}>
       <div className={styles.inner}>
-        <Article heading="Incidental Music" works={incidentalMusicList} />
-        <Article heading="Game Music" works={gameMusicList} />
-        <Article heading="Song Music" works={songMusicList} />
-        <Article heading="Instrument Playing" works={instrumentPlayingList} />
-        <Article heading="Drama CD" works={dramaCdList} />
-        <Article heading="And More" works={andMoreList} />
+        <div className={styles.incidentalMusicArticleWrapper}>
+          <Article
+            heading="劇伴"
+            initialCount={5}
+            works={incidentalMusicList}
+          />
+        </div>
+        <div>
+          <Article heading="ゲーム" works={gameMusicList} />
+        </div>
+        <div>
+          <Article heading="ボーカル楽曲" works={songMusicList} />
+        </div>
+        <div>
+          <Article heading="演奏" works={instrumentPlayingList} />
+        </div>
+        <div>
+          <Article heading="ドラマCD" works={dramaCdList} />
+        </div>
+        <div>
+          <Article heading="その他" works={andMoreList} />
+        </div>
       </div>
     </div>
   );
