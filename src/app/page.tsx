@@ -1,39 +1,36 @@
-import queryString from "query-string";
+import * as contentful from "contentful";
 import Home, { HomeProps } from "components/Home";
-import { NewsData } from "pages/api/news";
-import { YouTubeData } from "pages/api/youTube";
+import client from "libs/client";
 
 // revalidate every hour
 export const revalidate = 3600;
 
+type NewsData = contentful.EntryCollection<Contentful.INewsFields>;
+
 async function getNews(): Promise<NewsData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        limit: 5,
-        order: "-fields.date",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/news`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "news";
+  const entries = await client.getEntries<Contentful.INewsFields>({
+    content_type: contentType,
+    limit: 5,
+    order: "-fields.date",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
 
+type YouTubeData = contentful.EntryCollection<Contentful.IYouTubeFields>;
+
 async function getYouTube(): Promise<YouTubeData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        limit: 6,
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/youTube`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "youTube";
+  const entries = await client.getEntries<Contentful.IYouTubeFields>({
+    content_type: contentType,
+    limit: 6,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
 
 export default async function Page(): Promise<JSX.Element> {

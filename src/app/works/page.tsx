@@ -1,97 +1,88 @@
-import queryString from "query-string";
+import * as contentful from "contentful";
 import Works, { WorksProps } from "components/Works";
-import { AndMoreData } from "pages/api/andMore";
-import { DramaCdData } from "pages/api/dramaCd";
-import { GameMusicData } from "pages/api/gameMusic";
-import { IncidentalMusicData } from "pages/api/incidentalMusic";
-import { InstrumentPlayingData } from "pages/api/instrumentPlaying";
-import { SongMusicData } from "pages/api/songMusic";
+import client from "libs/client";
 
 // revalidate every hour
 export const revalidate = 3600;
 
+type AndMoreData = contentful.EntryCollection<Contentful.IAndMoreFields>;
+
 async function getAndMore(): Promise<AndMoreData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/andMore`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "andMore";
+  const entries = await client.getEntries<Contentful.IAndMoreFields>({
+    content_type: contentType,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
+
+type DramaCdData = contentful.EntryCollection<Contentful.IDramaCdFields>;
 
 async function getDramaCd(): Promise<DramaCdData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/dramaCd`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "dramaCd";
+  const entries = await client.getEntries<Contentful.IDramaCdFields>({
+    content_type: contentType,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
+
+type GameMusicData = contentful.EntryCollection<Contentful.IGameMusicFields>;
 
 async function getGameMusic(): Promise<GameMusicData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/gameMusic`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "gameMusic";
+  const entries = await client.getEntries<Contentful.IGameMusicFields>({
+    content_type: contentType,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
+
+type IncidentalMusicData =
+  contentful.EntryCollection<Contentful.IIncidentalMusicFields>;
 
 async function getIncidentalMusic(): Promise<IncidentalMusicData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/incidentalMusic`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "incidentalMusic";
+  const entries = await client.getEntries<Contentful.IIncidentalMusicFields>({
+    content_type: contentType,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
+
+type InstrumentPlayingData =
+  contentful.EntryCollection<Contentful.IInstrumentPlayingFields>;
 
 async function getInstrumentPlaying(): Promise<InstrumentPlayingData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/incidentalMusic`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "instrumentPlaying";
+  const entries = await client.getEntries<Contentful.IInstrumentPlayingFields>({
+    content_type: contentType,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
 
+type SongMusicData = contentful.EntryCollection<Contentful.ISongMusicFields>;
+
 async function getSongMusic(): Promise<SongMusicData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/songMusic`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "songMusic";
+  const entries = await client.getEntries<Contentful.ISongMusicFields>({
+    content_type: contentType,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
 
 export default async function Page(): Promise<JSX.Element> {

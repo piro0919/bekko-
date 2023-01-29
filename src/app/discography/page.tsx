@@ -1,67 +1,60 @@
-import queryString from "query-string";
+import * as contentful from "contentful";
 import Discography from "components/Discography";
-import { AppleMusicData } from "pages/api/appleMusic";
-import { BoothData } from "pages/api/booth";
-import { SpotifyData } from "pages/api/spotify";
-import { YouTubeData } from "pages/api/youTube";
+import client from "libs/client";
 
 // revalidate every hour
 export const revalidate = 3600;
 
+type AppleMusicData = contentful.EntryCollection<Contentful.IAppleMusicFields>;
+
 async function getAppleMusic(): Promise<AppleMusicData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/appleMusic`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "appleMusic";
+  const entries = await client.getEntries<Contentful.IAppleMusicFields>({
+    content_type: contentType,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
+
+type BoothData = contentful.EntryCollection<Contentful.IBoothFields>;
 
 async function getBooth(): Promise<BoothData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/booth`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "booth";
+  const entries = await client.getEntries<Contentful.IBoothFields>({
+    content_type: contentType,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
+
+type SpotifyData = contentful.EntryCollection<Contentful.ISpotifyFields>;
 
 async function getSpotify(): Promise<SpotifyData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/spotify`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "spotify";
+  const entries = await client.getEntries<Contentful.ISpotifyFields>({
+    content_type: contentType,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
 
+type YouTubeData = contentful.EntryCollection<Contentful.IYouTubeFields>;
+
 async function getYouTube(): Promise<YouTubeData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/youTube`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "youTube";
+  const entries = await client.getEntries<Contentful.IYouTubeFields>({
+    content_type: contentType,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
 
 export default async function Page(): Promise<JSX.Element> {

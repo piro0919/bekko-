@@ -1,22 +1,22 @@
-import queryString from "query-string";
+import * as contentful from "contentful";
 import Profile, { ProfileProps } from "components/Profile";
-import { WorkInChargeData } from "pages/api/workInCharge";
+import client from "libs/client";
 
 // revalidate every hour
 export const revalidate = 3600;
 
+type WorkInChargeData =
+  contentful.EntryCollection<Contentful.IWorkInChargeFields>;
+
 async function getWorkInCharge(): Promise<WorkInChargeData> {
-  const res = await fetch(
-    queryString.stringifyUrl({
-      query: {
-        order: "-sys.createdAt",
-      },
-      url: `${process.env.ORIGIN_URL || ""}/api/workInCharge`,
-    })
-  );
+  const contentType: Contentful.CONTENT_TYPE = "workInCharge";
+  const entries = await client.getEntries<Contentful.IWorkInChargeFields>({
+    content_type: contentType,
+    order: "-sys.createdAt",
+  });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return res.json();
+  return entries;
 }
 
 export default async function Page(): Promise<JSX.Element> {
