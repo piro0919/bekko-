@@ -7,6 +7,7 @@ import "react-modern-drawer/dist/index.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "ress/dist/ress.min.css";
+// eslint-disable-next-line postcss-modules/no-unused-class
 import "./globals.scss";
 import "./mq-settings.scss";
 import Layout from "components/Layout";
