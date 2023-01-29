@@ -1,6 +1,8 @@
+"use client";
 import { Poppins } from "@next/font/google";
 import Image from "next/image";
 import queryString from "query-string";
+import LazyLoad from "react-lazy-load";
 import styles from "./style.module.scss";
 
 const poppins = Poppins({
@@ -52,15 +54,18 @@ export default function Discography({
                   <li key={url}>
                     <a href={url} rel="noreferrer" target="_blank">
                       <div className={styles.iframeWrapper}>
-                        <iframe
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                          allowFullScreen={true}
-                          className={styles.iframe}
-                          src={`https://www.youtube.com/embed/${
-                            queryString.parseUrl(url).query.v?.toString() || ""
-                          }?controls=0&modestbranding=1`}
-                          title="YouTube video player"
-                        />
+                        <LazyLoad>
+                          <iframe
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen={true}
+                            className={styles.iframe}
+                            src={`https://www.youtube.com/embed/${
+                              queryString.parseUrl(url).query.v?.toString() ||
+                              ""
+                            }?controls=0&modestbranding=1`}
+                            title="YouTube video player"
+                          />
+                        </LazyLoad>
                       </div>
                     </a>
                     <div className={styles.title}>{title}</div>
@@ -79,17 +84,21 @@ export default function Discography({
               <ul className={styles.list}>
                 {spotifyList.map(({ url }) => (
                   <li key={url}>
-                    <iframe
-                      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                      height="352"
-                      loading="lazy"
-                      src={url.replace(
-                        "open.spotify.com/",
-                        "open.spotify.com/embed/"
-                      )}
-                      style={{ borderRadius: "12px" }}
-                      width="100%"
-                    />
+                    <div className={styles.iframeWrapper2}>
+                      <LazyLoad>
+                        <iframe
+                          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                          height="352"
+                          loading="lazy"
+                          src={url.replace(
+                            "open.spotify.com/",
+                            "open.spotify.com/embed/"
+                          )}
+                          style={{ borderRadius: "12px" }}
+                          width="100%"
+                        />
+                      </LazyLoad>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -105,14 +114,18 @@ export default function Discography({
               <ul className={styles.list}>
                 {boothList.map(({ jacketUrl, title, url }) => (
                   <li key={url}>
-                    <div className={styles.imageWrapper2}>
-                      <Image
-                        alt=""
-                        fill={true}
-                        src={jacketUrl}
-                        style={{ objectFit: "cover" }}
-                      />
-                    </div>
+                    <a href={url} rel="noreferrer" target="_blank">
+                      <div className={styles.imageWrapper}>
+                        <LazyLoad>
+                          <Image
+                            alt=""
+                            fill={true}
+                            src={jacketUrl}
+                            style={{ objectFit: "cover" }}
+                          />
+                        </LazyLoad>
+                      </div>
+                    </a>
                     <div className={styles.title}>{title}</div>
                   </li>
                 ))}
@@ -129,18 +142,22 @@ export default function Discography({
               <ul className={styles.list}>
                 {appleMusicList.map(({ url }) => (
                   <li key={url}>
-                    <iframe
-                      allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
-                      height="450"
-                      sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
-                      src={url.replace("https://", "https://embed.")}
-                      style={{
-                        background: "transparent",
-                        maxWidth: "660px",
-                        overflow: "hidden",
-                        width: "100%",
-                      }}
-                    />
+                    <div className={styles.iframeWrapper2}>
+                      <LazyLoad>
+                        <iframe
+                          allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
+                          height="450"
+                          sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
+                          src={url.replace("https://", "https://embed.")}
+                          style={{
+                            background: "transparent",
+                            maxWidth: "660px",
+                            overflow: "hidden",
+                            width: "100%",
+                          }}
+                        />
+                      </LazyLoad>
+                    </div>
                   </li>
                 ))}
               </ul>

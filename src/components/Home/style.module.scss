@@ -45,12 +45,28 @@
   }
 }
 
+.iframeWrapper::before,
 .iframeWrapper::after {
   content: "";
   display: block;
   height: 100%;
   position: absolute;
   width: 100%;
+}
+
+@keyframes SKELETON {
+  0%,
+  100% {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  50% {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.iframeWrapper::before {
+  animation: SKELETON 1s infinite linear;
 }
 
 .iframe {

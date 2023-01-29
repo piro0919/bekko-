@@ -8,11 +8,24 @@
 .inner {
   max-width: 640px;
   width: 100%;
+  @include mq.mq($until: tablet) {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  @include mq.mq($from: tablet) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 .fieldsWrapper {
   display: grid;
-  gap: 48px;
+  @include mq.mq($until: tablet) {
+    gap: 36px;
+  }
+  @include mq.mq($from: tablet) {
+    gap: 48px;
+  }
 }
 
 .label {

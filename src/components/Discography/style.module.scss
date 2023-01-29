@@ -48,12 +48,43 @@
   position: relative;
 }
 
-.iframeWrapper::after {
+.iframeWrapper2 {
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+}
+
+.iframeWrapper::before,
+.iframeWrapper2::before,
+.iframeWrapper::after,
+.imageWrapper::before {
   content: "";
   display: block;
   height: 100%;
+  inset: 0;
   position: absolute;
   width: 100%;
+}
+
+.iframeWrapper::after {
+  z-index: 101;
+}
+
+@keyframes SKELETON {
+  0%,
+  100% {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  50% {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.iframeWrapper::before,
+.iframeWrapper2::before,
+.imageWrapper::before {
+  animation: SKELETON 1s infinite linear;
 }
 
 .iframe {
@@ -81,7 +112,7 @@
   }
 }
 
-.imageWrapper2 {
+.imageWrapper {
   aspect-ratio: 1 / 1;
   border-radius: 12px;
   overflow: hidden;

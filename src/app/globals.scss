@@ -26,6 +26,10 @@ a {
   text-decoration: none;
 }
 
+iframe {
+  vertical-align: top;
+}
+
 img,
 svg {
   pointer-events: none;
@@ -33,4 +37,10 @@ svg {
 
 ul {
   list-style: none;
+}
+
+.LazyLoad {
+  aspect-ratio: inherit;
+  position: relative;
+  z-index: 100;
 }

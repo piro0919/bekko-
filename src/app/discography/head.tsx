@@ -1,7 +1,9 @@
+import Seo from "components/Seo";
+
 export default function Head(): JSX.Element {
   return (
     <>
-      <title>Discography - Natsuzolab</title>
+      <Seo title="Discography" />
     </>
   );
 }

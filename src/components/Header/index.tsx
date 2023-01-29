@@ -22,7 +22,9 @@ export default function Header({ onOpen }: HeaderProps): JSX.Element {
   const { setValue: setIsTop, value: isTop } = useBoolean(true);
 
   useEffect(() => {
-    setIsTop(!scrollY);
+    console.log(scrollY);
+
+    setIsTop(scrollY < 144);
   }, [scrollY, setIsTop]);
 
   return (
