@@ -1,5 +1,6 @@
 "use client";
 import { Poppins } from "@next/font/google";
+import { useMemo } from "react";
 import useCollapse from "react-collapsed";
 import {
   IoChevronDownCircleSharp,
@@ -7,45 +8,58 @@ import {
 } from "react-icons/io5";
 import styles from "./style.module.scss";
 
-type ArticleProps = {
-  heading: string;
+type Work = {
+  title: string;
+  url: string;
 };
 
-function Article({ heading }: ArticleProps): JSX.Element {
+type ArticleProps = {
+  heading: string;
+  works: Work[];
+};
+
+function Article({ heading, works }: ArticleProps): JSX.Element {
   const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
+  const items = useMemo(
+    () =>
+      works.map(({ title, url }) => (
+        <li className={styles.item} key={url}>
+          {url ? (
+            <a
+              className={styles.link}
+              href={url}
+              rel="noreferrer"
+              target="_blank"
+            >
+              {title}
+            </a>
+          ) : (
+            title
+          )}
+        </li>
+      )),
+    [works]
+  );
 
   return (
     <article className={styles.article}>
       <h2 className={poppins.className}>{heading}</h2>
       <div className={styles.listWrapper}>
-        <ul className={styles.list}>
-          <li className={styles.item}>
-            【劇場アニメ】「らくだい魔女 フウカと闇の魔女」2023年3月31日(金)公開
-            山崎泰之さんと共作
-          </li>
-          <li className={styles.item}>
-            【アニメ】「ダークギャザリング」2023年夏放送開始 KOHTA
-            YAMAMOTOさん、瀬尾祐介さんと共作
-          </li>
-          <li className={styles.item}>
-            【アニメ】「カワイスギクライシス」2023年4月放送開始
-            瀬尾祐介さんと共作
-          </li>
-        </ul>
-        <ul {...getCollapseProps()} className={styles.collapseList}>
-          <li className={styles.item}>
-            【アニメ】「もういっぽん！」2023年1月放送開始
-          </li>
+        <ul className={styles.list}>{items.filter((_, index) => index < 3)}</ul>
+        <ul {...getCollapseProps()}>
+          {items.filter((_, index) => index >= 3)}
         </ul>
       </div>
       <div className={styles.bottomWrapper}>
-        <button {...getToggleProps()}>
-          {isExpanded ? (
-            <IoChevronUpCircleSharp color="#fff" size={24} />
-          ) : (
-            <IoChevronDownCircleSharp color="#fff" size={24} />
-          )}
-        </button>
+        {items.at(3) ? (
+          <button {...getToggleProps()}>
+            {isExpanded ? (
+              <IoChevronUpCircleSharp color="#fff" size={24} />
+            ) : (
+              <IoChevronDownCircleSharp color="#fff" size={24} />
+            )}
+          </button>
+        ) : null}
       </div>
     </article>
   );
@@ -56,16 +70,32 @@ const poppins = Poppins({
   weight: "400",
 });
 
-export default function Works(): JSX.Element {
+export type WorksProps = {
+  andMoreList: ArticleProps["works"];
+  dramaCdList: ArticleProps["works"];
+  gameMusicList: ArticleProps["works"];
+  incidentalMusicList: ArticleProps["works"];
+  instrumentPlayingList: ArticleProps["works"];
+  songMusicList: ArticleProps["works"];
+};
+
+export default function Works({
+  andMoreList,
+  dramaCdList,
+  gameMusicList,
+  incidentalMusicList,
+  instrumentPlayingList,
+  songMusicList,
+}: WorksProps): JSX.Element {
   return (
     <div className={styles.wrapper}>
       <div className={styles.inner}>
-        <Article heading="Incidental Music" />
-        <Article heading="Game Music" />
-        <Article heading="Song Music" />
-        <Article heading="Instrument Playing" />
-        <Article heading="Drama CD" />
-        <Article heading="And More" />
+        <Article heading="Incidental Music" works={incidentalMusicList} />
+        <Article heading="Game Music" works={gameMusicList} />
+        <Article heading="Song Music" works={songMusicList} />
+        <Article heading="Instrument Playing" works={instrumentPlayingList} />
+        <Article heading="Drama CD" works={dramaCdList} />
+        <Article heading="And More" works={andMoreList} />
       </div>
     </div>
   );

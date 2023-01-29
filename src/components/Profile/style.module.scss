@@ -18,7 +18,7 @@
 }
 
 .articleInner {
-  gap: 48px;
+  gap: 24px;
   @include mq.mq($until: tablet) {
     display: flex;
     flex-direction: column-reverse;
@@ -32,14 +32,17 @@
 
 .descriptionWrapper {
   display: grid;
-  gap: 48px;
+  gap: 24px;
   line-height: 2;
-  margin: 12px 0 0;
+  margin: 8px 0 0;
 }
 
 .article {
   display: grid;
-  gap: 12px;
+}
+
+.link {
+  text-decoration: underline;
 }
 
 .imageWrapper {

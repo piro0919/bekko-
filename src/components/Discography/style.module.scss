@@ -36,7 +36,7 @@
     grid-template: auto / repeat(2, 1fr);
   }
   @include mq.mq($from: wide) {
-    gap: 48px;
+    gap: 48px 24px;
     grid-template: auto / repeat(3, 1fr);
   }
 }

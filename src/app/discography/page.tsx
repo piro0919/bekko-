@@ -14,7 +14,7 @@ async function getAppleMusic(): Promise<AppleMusicData> {
       query: {
         order: "-sys.createdAt",
       },
-      url: "http://localhost:3000/api/appleMusic",
+      url: `${process.env.ORIGIN_URL || ""}/api/appleMusic`,
     })
   );
 
@@ -28,7 +28,7 @@ async function getBooth(): Promise<BoothData> {
       query: {
         order: "-sys.createdAt",
       },
-      url: "http://localhost:3000/api/booth",
+      url: `${process.env.ORIGIN_URL || ""}/api/booth`,
     })
   );
 
@@ -42,7 +42,7 @@ async function getSpotify(): Promise<SpotifyData> {
       query: {
         order: "-sys.createdAt",
       },
-      url: "http://localhost:3000/api/spotify",
+      url: `${process.env.ORIGIN_URL || ""}/api/spotify`,
     })
   );
 
@@ -56,7 +56,7 @@ async function getYouTube(): Promise<YouTubeData> {
       query: {
         order: "-sys.createdAt",
       },
-      url: "http://localhost:3000/api/youTube",
+      url: `${process.env.ORIGIN_URL || ""}/api/youTube`,
     })
   );
 

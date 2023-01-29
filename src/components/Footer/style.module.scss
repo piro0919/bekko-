@@ -19,3 +19,13 @@
 .copyright {
   font-size: 1.2rem;
 }
+
+.socialIconsWrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.socialIcon {
+  height: 36px !important;
+  width: 36px !important;
+}

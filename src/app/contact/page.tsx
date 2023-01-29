@@ -1,11 +1,18 @@
 "use client";
-import { useCallback } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 import Contact, { ContactProps } from "components/Contact";
 
 export default function Page(): JSX.Element {
-  const handleSubmit = useCallback<ContactProps["onSubmit"]>((values) => {
-    console.log(values);
-  }, []);
+  const handleSubmit: ContactProps["onSubmit"] = async (values) => {
+    const resolve = axios.post("/api/email", values);
+
+    await toast.promise(resolve, {
+      error: "メールの送信に失敗しました",
+      pending: "メールを送信中です…",
+      success: "メールの送信に成功しました",
+    });
+  };
 
   return <Contact onSubmit={handleSubmit} />;
 }

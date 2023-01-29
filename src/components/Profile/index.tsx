@@ -1,7 +1,18 @@
 import Image from "next/image";
 import styles from "./style.module.scss";
 
-export default function Profile(): JSX.Element {
+type WorkInCharge = {
+  title: string;
+  url: string;
+};
+
+export type ProfileProps = {
+  workInChargeList: WorkInCharge[];
+};
+
+export default function Profile({
+  workInChargeList,
+}: ProfileProps): JSX.Element {
   return (
     <div className={styles.wrapper}>
       <div className={styles.inner}>
@@ -29,46 +40,20 @@ export default function Profile(): JSX.Element {
                 <article className={styles.article}>
                   <h3>主な担当作品</h3>
                   <ul className={styles.list}>
-                    {[
-                      {
-                        title: "カワイスギクライシス",
-                        url: "https://www.google.co.jp/",
-                      },
-                      {
-                        title: "ダークギャザリング",
-                        url: "https://www.google.co.jp/",
-                      },
-                      {
-                        title: "それでも歩は寄せてくる",
-                        url: "https://www.google.co.jp/",
-                      },
-                      {
-                        title: "もういっぽん！",
-                        url: "https://www.google.co.jp/",
-                      },
-                      {
-                        title: "闘神機ジーズフレーム",
-                        url: "https://www.google.co.jp/",
-                      },
-                      {
-                        title: "ツナガレラジオ～僕らの雨降 Days～",
-                        url: "https://www.google.co.jp/",
-                      },
-                      {
-                        title: "NOBLESSE -ノブレス-",
-                        url: "https://www.google.co.jp/",
-                      },
-                      {
-                        title: "あかねさす少女",
-                        url: "https://www.google.co.jp/",
-                      },
-                      {
-                        title: "俺達の世界わ終っている。",
-                        url: "https://www.google.co.jp/",
-                      },
-                    ].map(({ title, url }) => (
+                    {workInChargeList.map(({ title, url }) => (
                       <li className={styles.item} key={url}>
-                        {title}
+                        {url ? (
+                          <a
+                            className={styles.link}
+                            href={url}
+                            rel="noreferrer"
+                            target="_blank"
+                          >
+                            {title}
+                          </a>
+                        ) : (
+                          title
+                        )}
                       </li>
                     ))}
                   </ul>

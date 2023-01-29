@@ -11,14 +11,22 @@ import styles from "./style.module.scss";
 type News = {
   date: string;
   title: string;
-  url?: string;
+  url: string;
+};
+
+type YouTube = {
+  url: string;
 };
 
 export type HomeProps = {
   newsList: News[];
+  youTubeList: YouTube[];
 };
 
-export default function Home({ newsList }: HomeProps): JSX.Element {
+export default function Home({
+  newsList,
+  youTubeList,
+}: HomeProps): JSX.Element {
   const { width: scrollbarWidth } = useScrollbarSize();
   const { width } = useWindowSize();
 
@@ -38,12 +46,7 @@ export default function Home({ newsList }: HomeProps): JSX.Element {
           slidesPerView={1.4}
           spaceBetween={width >= 980 ? 48 : 24}
         >
-          {[
-            "https://www.youtube.com/watch?v=jpiz5RLqSgw",
-            "https://www.youtube.com/watch?v=L57MI58_pPc",
-            "https://www.youtube.com/watch?v=JVBCojs8Ccg",
-            "https://www.youtube.com/watch?v=9E-Q-imZq00",
-          ].map((url) => (
+          {youTubeList.map(({ url }) => (
             <SwiperSlide key={url}>
               <a href={url} rel="noreferrer" target="_blank">
                 <div className={styles.iframeWrapper}>

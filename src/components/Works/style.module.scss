@@ -44,25 +44,24 @@
   margin: 24px 0 0;
 }
 
-.list,
-.collapseList {
-  display: grid;
-  gap: 24px;
-}
-
-.collapseList {
-  margin: 12px 0 0;
+.list {
+  margin: 24px 0 0;
 }
 
 .item {
   align-items: center;
   display: flex;
   gap: 8px;
+  margin: 24px 0 0;
 }
 
 .item::before {
   content: "-";
   display: block;
+}
+
+.link {
+  text-decoration: underline;
 }
 
 .bottomWrapper {

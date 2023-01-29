@@ -1,7 +1,11 @@
-// eslint-disable-next-line filenames/match-exported, camelcase
+// eslint-disable-next-line filenames/match-exported
+"use client";
+// eslint-disable-next-line camelcase
 import { Zen_Kaku_Gothic_New } from "@next/font/google";
 import { ReactNode } from "react";
 import "react-modern-drawer/dist/index.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "ress/dist/ress.min.css";
 import "./globals.scss";
 import "./mq-settings.scss";
@@ -21,6 +25,8 @@ export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
     <html lang="ja">
       <head />
       <body className={zenKakuGothicNew.className}>
+        <script />
+        <ToastContainer position="bottom-center" theme="dark" />
         <Layout>{children}</Layout>
       </body>
     </html>
