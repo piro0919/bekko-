@@ -2,6 +2,7 @@
 "use client";
 // eslint-disable-next-line camelcase
 import { Zen_Kaku_Gothic_New } from "@next/font/google";
+import { GoogleAnalytics, usePageViews } from "nextjs-google-analytics";
 import { ReactNode } from "react";
 import "react-modern-drawer/dist/index.css";
 import { ToastContainer } from "react-toastify";
@@ -22,11 +23,14 @@ export type RootLayoutProps = {
 };
 
 export default function RootLayout({ children }: RootLayoutProps): JSX.Element {
+  usePageViews({ gaMeasurementId: process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID });
+
   return (
     <html lang="ja">
       <head />
       <body className={zenKakuGothicNew.className}>
         <script />
+        <GoogleAnalytics />
         <ToastContainer position="bottom-center" theme="dark" />
         <Layout>{children}</Layout>
       </body>
