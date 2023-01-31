@@ -6,10 +6,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 
-export default function handler(
+export default async function handler(
   { body: { email, message, name, subject } }: NextApiRequest,
   res: NextApiResponse
-): void {
+): Promise<void> {
   const transporter = nodemailer.createTransport({
     auth: {
       pass: process.env.NODEMAILER_AUTH_PASS,
@@ -22,22 +22,14 @@ export default function handler(
       rejectUnauthorized: process.env.NODE_ENV !== "development",
     },
   });
-  const mailOptions = {
+  const info = await transporter.sendMail({
     subject,
     replyTo: `${name} <${email}>`,
     text: message,
     to: process.env.NODEMAILER_AUTH_USER,
-  };
-
-  let statusCode = 200;
-
-  transporter.sendMail(mailOptions, (err) => {
-    if (!err) {
-      return;
-    }
-
-    statusCode = 500;
   });
 
-  res.status(statusCode).end();
+  res.status(200);
+  res.json(info);
+  res.end();
 }
