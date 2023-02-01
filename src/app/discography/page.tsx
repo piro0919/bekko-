@@ -65,9 +65,10 @@ export default async function Page(): Promise<JSX.Element> {
       getSpotify(),
       getYouTube(),
     ]);
-  const appleMusicList = appleMusicData.items.map(({ fields: { url } }) => ({
-    url,
-  }));
+  const appleMusicList = appleMusicData.items
+    .map(({ fields: { longUrl, url } }) => url || longUrl)
+    .filter((url): url is string => !!url)
+    .map((url) => ({ url }));
   const boothList = boothData.items.map(
     ({
       fields: {
