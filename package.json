@@ -14,7 +14,7 @@
     "@typescript-eslint/parser": "5.49.0",
     "axios": "1.2.5",
     "contentful": "9.3.0",
-    "contentful-management": "10.27.2",
+    "contentful-management": "11.35.1",
     "contentful-typescript-codegen": "3.4.0",
     "eslint": "8.32.0",
     "eslint-config-google": "0.14.0",
