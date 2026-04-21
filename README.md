@@ -1,6 +1,6 @@
 # Natsuzolab
 
-> Portfolio website for composer Shun Narita (成田旬 / Natsuzolab).
+> Portfolio website for composer Shun Narita (Natsuzolab).
 
 [🔗 Live Site](https://www.natsuzolab.com/)
 
@@ -23,3 +23,7 @@
 pnpm install
 pnpm dev
 ```
+
+## 📄 License
+
+MIT
